@@ -1,38 +1,84 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+
+  width: 80%;
+  height: 100vh;
+
+  margin: auto;
 }
 
-.App-link {
-  color: #61dafb;
+.card-container {
+  position: relative;
+
+  width: 36rem;
+  height: 22rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card-container svg {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  font-size: 3rem;
+}
+
+.card-container svg:hover {
+  cursor: pointer;
+  color: blue;
+}
+
+.card {
+  position: absolute;
+
+  height: 20rem;
+  width: 10rem;
+
+  margin: 1rem;
+
+  background-color: gray;
+
+  border-radius: 1rem;
+
+  text-align: center;
+  text-transform: capitalize;
+
+  box-sizing: border-box;
+
+  transition: all 1s;
+}
+
+.card img {
+  height: 15rem;
+  width: 10rem;
+
+  object-fit: cover;
+  object-position: top;
+}
+
+.prevCard {
+  left: calc(0% + 2rem);
+  opacity: 0;
+}
+
+.activeCard {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nextCard {
+  left: 100%;
+  transform: translateX(calc(-100% - 2rem));
+  opacity: 0;
+}
+
+/* Carousel buttons */
+
+.leftBtn {
+  left: -1rem;
+}
+
+.rightBtn {
+  right: -1rem;
 }
