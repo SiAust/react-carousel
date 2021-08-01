@@ -3,6 +3,8 @@ import "./App.css";
 import { useState, useEffect } from "react";
 
 import Card from "./components/Card";
+import Paginator from "./components/Paginator";
+
 import { data } from "./data";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -98,6 +100,7 @@ function App() {
     <div className="App">
       <div className="container">
         <div className="card-container">
+          <Paginator dataLength={data.length} activeIndex={index} />
           <div className="background-block"></div>
           <FontAwesomeIcon
             onClick={slideLeft}
