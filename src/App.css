@@ -16,6 +16,13 @@
   height: 22rem;
 }
 
+.background-block {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
 .card-container svg {
   position: absolute;
   top: 50%;
@@ -27,6 +34,14 @@
 .card-container svg:hover {
   cursor: pointer;
   color: blue;
+}
+
+article {
+  position: absolute;
+  width: 12rem;
+  height: 100%;
+
+  transition: all 1s;
 }
 
 .card {
@@ -46,7 +61,11 @@
 
   box-sizing: border-box;
 
-  transition: all 1s;
+  user-select: none;
+}
+
+.card:hover {
+  cursor: pointer;
 }
 
 .card img {
@@ -55,11 +74,14 @@
 
   object-fit: cover;
   object-position: top;
+
+  pointer-events: none;
 }
 
 .prevCard {
-  left: calc(0% + 2rem);
+  left: 0;
   opacity: 0;
+  z-index: -1;
 }
 
 .activeCard {
@@ -69,8 +91,9 @@
 
 .nextCard {
   left: 100%;
-  transform: translateX(calc(-100% - 2rem));
+  transform: translateX(-100%);
   opacity: 0;
+  z-index: -1;
 }
 
 /* Carousel buttons */
