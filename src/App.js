@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import Card from "./components/Card";
 import Paginator from "./components/Paginator";
@@ -15,34 +15,24 @@ import {
 function App() {
   const [index, setIndex] = useState(0);
 
-  useEffect(() => {
-    console.log("useEffect called");
-  }, [index]);
-
   const slideLeft = () => {
-    console.log("call left");
     if (index - 1 >= 0) {
       setIndex(index - 1);
     }
   };
 
   const slideRight = () => {
-    console.log("call right");
     if (index + 1 <= data.length - 1) {
       setIndex(index + 1);
     }
   };
 
   const handlePageChange = (page) => {
-    console.log(page);
     let n = page - index;
-    console.log(`n ${n}`);
     setIndex(index + n);
   };
 
   const handlePointerEvent = (e) => {
-    // console.log(e.target);
-    console.log(e.clientX);
     /* check which type of event we have, 
     and set a flag variable */
     let isTouchEvent = e.type === "touchstart" ? true : false;
@@ -68,7 +58,6 @@ function App() {
 
     /* when the mouse moves we handle the event here */
     function onPointerMove(e) {
-      console.log(e.clientX);
       /* set offset to the current position of the cursor,
       minus the initial starting position  */
       offset = (isTouchEvent ? e.touches[0].clientX : e.clientX) - initialX;
