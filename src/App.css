@@ -29,6 +29,8 @@
   transform: translateY(-50%);
 
   font-size: 3rem;
+
+  color: gray;
 }
 
 .card-container svg:hover {
@@ -143,7 +145,30 @@ article {
   transition: all 1s;
 }
 
+.dot:hover {
+  cursor: pointer;
+}
+
 .dot.active {
   box-shadow: 0 0 0 4px grey;
   background-color: white;
+}
+
+@media screen and (max-width: 425px) {
+  .container {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .card-container {
+    width: 80%;
+  }
+
+  .prevCard {
+    left: -35%;
+  }
+
+  .nextCard {
+    left: 135%;
+  }
 }

@@ -1,7 +1,11 @@
-const Card = ({ handleMouseDown, name, img, cardStyle }) => {
+const Card = ({ handlePointerEvent, name, img, cardStyle }) => {
   return (
     <article className={cardStyle}>
-      <div className="card" onMouseDown={handleMouseDown}>
+      <div
+        className="card"
+        onMouseDown={handlePointerEvent}
+        onTouchStart={handlePointerEvent}
+      >
         <img src={img} alt={name} />
         <h2>{name}</h2>
       </div>

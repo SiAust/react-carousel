@@ -15,39 +15,63 @@ import {
 function App() {
   const [index, setIndex] = useState(0);
 
+  useEffect(() => {
+    console.log("useEffect called");
+  }, [index]);
+
   const slideLeft = () => {
+    console.log("call left");
     if (index - 1 >= 0) {
       setIndex(index - 1);
     }
   };
 
   const slideRight = () => {
+    console.log("call right");
     if (index + 1 <= data.length - 1) {
       setIndex(index + 1);
     }
   };
 
-  const handleMouseDown = (e) => {
+  const handlePageChange = (page) => {
+    console.log(page);
+    let n = page - index;
+    console.log(`n ${n}`);
+    setIndex(index + n);
+  };
+
+  const handlePointerEvent = (e) => {
     // console.log(e.target);
     console.log(e.clientX);
+    /* check which type of event we have, 
+    and set a flag variable */
+    let isTouchEvent = e.type === "touchstart" ? true : false;
 
     /* this is our card we will move */
     let card = e.target;
     /* to keep track of the value to offset the card left */
     let offset = 0;
     /* keeps the initial mouse click x value */
-    let initialX = e.clientX;
+    let initialX = isTouchEvent ? e.touches[0].clientX : e.clientX;
+
+    /* mouse events */
     /* set the documents onmousemove event to use this function */
-    document.onmousemove = onMouseMove;
+    document.onmousemove = onPointerMove;
     /* sets the documents onmouseup event to use this function */
-    document.onmouseup = onMouseUp;
+    document.onmouseup = onPointerEnd;
+
+    /* touch events */
+    /* set the documents ontouchmove to this function */
+    document.ontouchmove = onPointerMove;
+    /* set the documents ontouchend to this function */
+    document.ontouchend = onPointerEnd;
 
     /* when the mouse moves we handle the event here */
-    function onMouseMove(e) {
+    function onPointerMove(e) {
       console.log(e.clientX);
       /* set offset to the current position of the cursor,
       minus the initial starting position  */
-      offset = e.clientX - initialX;
+      offset = (isTouchEvent ? e.touches[0].clientX : e.clientX) - initialX;
       if (offset <= -100) {
         slideRight();
         /* if we're at the last card, snap back to center */
@@ -80,7 +104,7 @@ function App() {
       card.style.left = offset + "px";
     }
 
-    function onMouseUp(e) {
+    function onPointerEnd(e) {
       /* if user releases mouse early,
       card needs to snap back */
       if (offset < 0 && offset > -100) {
@@ -90,9 +114,12 @@ function App() {
         card.style.left = 0;
       }
       /* remove functions from event listeners
-      (stop tracking mouse movements) */
+      (stop tracking pointer movements) */
       document.onmousemove = null;
       document.onmouseup = null;
+
+      document.ontouchmove = null;
+      document.ontouchend = null;
     }
   };
 
@@ -100,7 +127,11 @@ function App() {
     <div className="App">
       <div className="container">
         <div className="card-container">
-          <Paginator dataLength={data.length} activeIndex={index} />
+          <Paginator
+            dataLength={data.length}
+            activeIndex={index}
+            handlePageChange={handlePageChange}
+          />
           <div className="background-block"></div>
           <FontAwesomeIcon
             onClick={slideLeft}
@@ -117,7 +148,8 @@ function App() {
               n > index ? "nextCard" : n === index ? "activeCard" : "prevCard";
             return (
               <Card
-                handleMouseDown={handleMouseDown}
+                key={n}
+                handlePointerEvent={handlePointerEvent}
                 {...person}
                 cardStyle={position}
               />
